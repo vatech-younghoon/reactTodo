@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { MdDone, MdDelete } from "react-icons/md";
+import { useTodoDispatch } from "../../TodoContext";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -53,16 +54,19 @@ const useStyle = makeStyles(theme => ({
 }));
 
 function TodoItem({ id, done, text }) {
+  const dispatch = useTodoDispatch();
+  const onToggle = () => dispatch({ type: "TOGGLE", id });
+  const onRemove = () => dispatch({ type: "REMOVE", id });
   const classes = useStyle({ id, done, text });
   return (
     <div className={classes.root}>
-      <div className={classes.checkCircle} done={done}>
+      <div className={classes.checkCircle} done={done} onClick={onToggle}>
         {done && <MdDone />}
       </div>
       <text done={done} className={classes.text}>
         {text}
       </text>
-      <div className={classes.remove}>
+      <div className={classes.remove} onClick={onRemove}>
         <MdDelete />
       </div>
     </div>
