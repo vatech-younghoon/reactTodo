@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { createGlobalStyle } from "styled-components";
-import TodoTemplate from "./components/todolist/TodoTemplate";
+import { TodoTemplate, TodoHead, TodoList } from "./components/todolist";
 
 const useStyle = makeStyles(theme => ({}));
 
@@ -16,7 +16,10 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <TodoTemplate>ㅎㅇ </TodoTemplate>
+      <TodoTemplate>
+        <TodoHead />
+        <TodoList />
+      </TodoTemplate>
     </>
   );
 }
