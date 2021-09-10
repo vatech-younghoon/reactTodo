@@ -1,13 +1,22 @@
 import React from "react";
-import {createUseStyles} from react-jss
+import { makeStyles } from "@material-ui/styles";
+import { createGlobalStyle } from "styled-components";
+import TodoTemplate from "./components/todolist/TodoTemplate";
 
-const userStyles = createUseStyles
+const useStyle = makeStyles(theme => ({}));
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #e9ecef;
+  }
+`;
 
 function App() {
+  const classes = useStyle();
   return (
     <>
       <GlobalStyle />
-      <div>안녕하세요</div>
+      <TodoTemplate>ㅎㅇ </TodoTemplate>
     </>
   );
 }
