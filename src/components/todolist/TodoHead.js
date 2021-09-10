@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
+import { useTodoState } from "../../TodoContext";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -28,6 +29,8 @@ const useStyle = makeStyles(theme => ({
 }));
 
 function TodoHead() {
+  const todos = useTodoState();
+  console.log(todos);
   const classes = useStyle();
   return (
     <div className={classes.root}>
