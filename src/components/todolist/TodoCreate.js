@@ -19,6 +19,7 @@ const useStyle = makeStyles(theme => ({
     border: "none",
     outline: "none",
     transition: "0.125s all ease-in",
+    margin: "0 auto",
     background: props => {
       if (props.open) return "#ff6b6b";
       return "#38d9a9";
@@ -36,8 +37,8 @@ const useStyle = makeStyles(theme => ({
       }
     },
     transform: props => {
-      if (props.open) return "translate(-50%, 50%) rotate(45deg)";
-      return "translate(-50%, 50%)";
+      if (props.open) return "translate(0%, 50%) rotate(45deg)";
+      return "translate(0%, 50%)";
     }
   },
   insertFormPositioner: {
