@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { makeStyles } from "@material-ui/styles";
 import { MdAdd } from "react-icons/md";
-import { useTodoDispatch, useTodoNextId } from "../../TodoContext";
-
+import { useMutation } from "@apollo/client";
+import { CREATE_TODO } from "queries/todo";
 const useStyle = makeStyles(theme => ({
   circle__button: {
     zIndex: 5,
@@ -69,31 +70,44 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-function TodoCreate() {
+function TodoCreate({ todoRefetch }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const dispatch = useTodoDispatch();
-  const nextId = useTodoNextId();
+  // const dispatch = useTodoDispatch();
+  // const nextId = useTodoNextId();
 
   const onChange = e => setValue(e.target.value);
-  const onSubmit = e => {
-    e.preventDefault();
-    dispatch({
-      type: "CREATE",
-      todo: { id: nextId.current, text: value, done: false }
-    });
-    setValue("");
-    setOpen(false);
-    nextId.current += 1;
-  };
+
   const onToggle = () => setOpen(!open);
   const classes = useStyle({ open });
+
+  function reset() {
+    setValue("");
+    setOpen(false);
+  }
+
+  const [createTodo] = useMutation(CREATE_TODO, {
+    onCompleted: () => {
+      todoRefetch();
+      reset();
+    }
+  });
+  const onSubmit = e => {
+    e.preventDefault();
+    createTodo({
+      variables: {
+        id: uuid(),
+        text: value,
+        done: false
+      }
+    });
+  };
   return (
     <>
       {open && (
         <div className={classes.insertFormPositioner}>
-          <div className={classes.insertForm} onSubmit={onSubmit}>
+          <form className={classes.insertForm} onSubmit={onSubmit}>
             <input
               className={classes.input}
               autoFocus
@@ -101,7 +115,7 @@ function TodoCreate() {
               onChange={onChange}
               value={value}
             />
-          </div>
+          </form>
         </div>
       )}
       <div className={classes.circle__button} onClick={onToggle} open={open}>

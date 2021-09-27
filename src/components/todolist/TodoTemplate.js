@@ -1,5 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
+import { useQuery } from "@apollo/client";
+import { SEARCH_TODO } from "queries/todo";
+import { TodoHead, TodoList, TodoCreate } from "./index";
 
 const useStyle = makeStyles(theme => ({
   box: {
@@ -19,7 +22,14 @@ const useStyle = makeStyles(theme => ({
 
 function TodoTemplate({ children }) {
   const classes = useStyle();
-  return <div className={classes.box}>{children}</div>;
+  const { loading, error, data, refetch: todoRefetch } = useQuery(SEARCH_TODO);
+  return (
+    <div className={classes.box}>
+      <TodoHead />
+      <TodoList data={data} error={error} loading={loading} />
+      <TodoCreate todoRefetch={todoRefetch} />
+    </div>
+  );
 }
 
 export default TodoTemplate;

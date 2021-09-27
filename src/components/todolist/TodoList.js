@@ -1,18 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import TodoItem from "./TodoItem";
-import { gql } from "graphql-tag";
-import { useQuery } from "@apollo/client";
-
-const SEARCH_TODOS = gql`
-  query searchTodo {
-    todos: searchTodo {
-      id
-      text
-      done
-    }
-  }
-`;
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -23,9 +11,9 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-function TodoList() {
+function TodoList(props) {
   const classes = useStyle();
-  const { loading, error, data } = useQuery(SEARCH_TODOS);
+  const { loading, error, data, refetch: todoRefetch } = props;
   if (loading) return "Loading...";
   if (error) {
     console.log(error);
@@ -33,7 +21,7 @@ function TodoList() {
   }
   return (
     <div className={classes.root}>
-      {data.todos.map(todo => (
+      {data.searchTodo.map(todo => (
         <TodoItem
           id={todo.id}
           key={todo.id}

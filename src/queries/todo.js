@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 const SEARCH_TODO = gql`
   query searchTodo(
-    $args: InputSearhTodo
+    $args: InputSearchTodo
     $comparison: String
     $match: String
     $sort: InputSort
@@ -39,13 +39,13 @@ const REMOVE_TODO = gql`
 `;
 
 const UPDATE_TODO = gql`
-    mutation updateTodo($id: String!, $text:String! done:Boolean!) {
-        updateTodo(id: $id, text: $text, done:$done) {
-            id
-            text
-            done
-        }
+  mutation updateTodo($id: String!, $text: String!, $done: Boolean!) {
+    updateTodo(id: $id, text: $text, done: $done) {
+      id
+      text
+      done
     }
+  }
 `;
 
 export { SEARCH_TODO, CREATE_TODO, REMOVE_TODO, UPDATE_TODO };
