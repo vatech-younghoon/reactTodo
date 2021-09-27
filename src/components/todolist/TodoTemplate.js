@@ -25,7 +25,12 @@ function TodoTemplate({ children }) {
   const { loading, error, data, refetch: todoRefetch } = useQuery(SEARCH_TODO);
   return (
     <div className={classes.box}>
-      <TodoHead />
+      <TodoHead
+        loading={loading}
+        error={error}
+        data={data}
+        refetch={todoRefetch}
+      />
       <TodoList
         data={data}
         error={error}

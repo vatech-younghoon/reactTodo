@@ -13,7 +13,7 @@ const useStyle = makeStyles(theme => ({
 
 function TodoList(props) {
   const classes = useStyle();
-  const { loading, error, data, refetch: todoRefetch } = props;
+  const { loading, error, data, todoRefetch } = props;
   if (loading) return "Loading...";
   if (error) {
     console.log(error);
@@ -27,7 +27,7 @@ function TodoList(props) {
           key={todo.id}
           text={todo.text}
           done={todo.done}
-          todoRefetch={props.todoRefetch}
+          todoRefetch={todoRefetch}
         />
       ))}
     </div>
