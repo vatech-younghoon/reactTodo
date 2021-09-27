@@ -73,17 +73,10 @@ function TodoItem({ id, done, text, todoRefetch }) {
   const classes = useStyle({ id, done, text });
   return (
     <div className={classes.root}>
-      <div
-        className={classes.checkCircle}
-        done={done}
-        text={text}
-        onClick={onToggle}
-      >
+      <div className={classes.checkCircle} onClick={onToggle}>
         {done && <MdDone />}
       </div>
-      <text done={done} className={classes.text}>
-        {text}
-      </text>
+      <div className={classes.text}>{text}</div>
       <div className={classes.remove} onClick={onRemove}>
         <MdDelete />
       </div>

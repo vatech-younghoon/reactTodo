@@ -28,7 +28,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 function TodoHead(props) {
-  const { loading, error, data, todoRefetch } = props;
+  const { loading, error, data } = props;
 
   const today = new Date();
   const dateString = today.toLocaleDateString("ko-KR", {
