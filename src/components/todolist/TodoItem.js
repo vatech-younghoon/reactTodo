@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { MdDone, MdDelete } from "react-icons/md";
 import { useTodoDispatch } from "../../TodoContext";
+import { REMOVE_TODO } from "queries/todo";
+import { useMutation } from "@apollo/client";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -53,10 +55,17 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, todoRefetch }) {
   const dispatch = useTodoDispatch();
   const onToggle = () => dispatch({ type: "TOGGLE", id });
-  const onRemove = () => dispatch({ type: "REMOVE", id });
+  const [removeTodo] = useMutation(REMOVE_TODO, {
+    onCompleted: () => {
+      todoRefetch();
+    }
+  });
+
+  const onRemove = () => removeTodo({ variables: { id } });
+
   const classes = useStyle({ id, done, text });
   return (
     <div className={classes.root}>

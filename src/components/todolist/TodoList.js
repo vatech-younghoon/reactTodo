@@ -27,6 +27,7 @@ function TodoList(props) {
           key={todo.id}
           text={todo.text}
           done={todo.done}
+          todoRefetch={props.todoRefetch}
         />
       ))}
     </div>

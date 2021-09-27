@@ -26,7 +26,12 @@ function TodoTemplate({ children }) {
   return (
     <div className={classes.box}>
       <TodoHead />
-      <TodoList data={data} error={error} loading={loading} />
+      <TodoList
+        data={data}
+        error={error}
+        loading={loading}
+        todoRefetch={todoRefetch}
+      />
       <TodoCreate todoRefetch={todoRefetch} />
     </div>
   );
